@@ -35,6 +35,8 @@
 #include "game/main.h"
 #include "game/thread6.h"
 
+#include "saturn/saturn_rom_extract.h"
+
 #ifdef DISCORDRPC
 #include "pc/discord/discordrpc.h"
 #endif
@@ -268,6 +270,22 @@ void main_func(void) {
 
 int main(int argc, char *argv[]) {
     parse_cli_opts(argc, argv);
-    main_func();
+
+    // Copy custom assets (required in some form for AppImage, Android and OpenBSD. 
+    // Tested at present in unsandboxed and AppImage configurations)
+    // Not required for vanilla sm64ex, but very useful for including custom
+    // assets in a fork.
+    // if (copy_custom_assets()) return 1;
+
+    // Extract assets
+    if (gCLIOpts.ExtractOnly) {
+        saturn_extract_rom(EXTRACT_TYPE_ALL);
+        return 0;
+    } else {
+        int result = saturn_extract_rom(EXTRACT_TYPE_ALL);
+        // Start game
+        if (result == 0)
+            main_func();
+    }
     return 0;
 }

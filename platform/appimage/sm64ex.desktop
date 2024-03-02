@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=sm64ex
+Comment=Fork of https://github.com/sm64-port/sm64-port with additional features.
+Path=usr/bin
+Exec=sm64.us.f3dex2e
+Icon=dummy.svg
+Terminal=false
+Categories=Game;Graphics;Development;AudioVideo;

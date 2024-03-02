@@ -5,6 +5,6 @@ Name=sm64ex
 Comment=Fork of https://github.com/sm64-port/sm64-port with additional features.
 Path=usr/bin
 Exec=sm64.us.f3dex2e
-Icon=dummy.svg
+Icon=dummy
 Terminal=false
 Categories=Game;Graphics;Development;AudioVideo;

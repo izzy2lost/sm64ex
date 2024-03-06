@@ -28,6 +28,11 @@ jobs:
         mv build/us_pc/sm64.us.f3dex2e AppDir/usr/bin/
         mkdir -p AppDir/custom_assets/
         cp -r build/us_pc/* AppDir/custom_assets/
+    - name: Install additional necessary libraries to AppDir
+      run: |
+        mkdir -p AppDir/usr/lib/
+        docker run -v ${{ github.workspace }}:/sm64ex sm64ex-appimage-builder cp /usr/lib/x86_64-linux-gnu/libharfbuzz.so.0 AppDir/usr/lib/
+        docker run -v ${{ github.workspace }}:/sm64ex sm64ex-appimage-builder cp /usr/lib/x86_64-linux-gnu/libthai.so.0 AppDir/usr/lib/
     - name: Build sm64ex AppImage in builder image
       run: |
         touch dummy.svg

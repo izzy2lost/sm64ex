@@ -31,7 +31,7 @@ jobs:
     - name: Build sm64ex AppImage in builder image
       run: |
         touch dummy.svg
-        docker run -e NO_STRIP='true' -v ${{ github.workspace }}:/sm64ex sm64ex-appimage-builder /squashfs-root/AppRun --icon-file dummy.svg --desktop-file platform/appimage/sm64ex.desktop --appdir AppDir --output appimage
+        docker run -e NO_STRIP='true' -v ${{ github.workspace }}:/sm64ex sm64ex-appimage-builder /squashfs-root/AppRun --plugin gtk --icon-file dummy.svg --desktop-file platform/appimage/sm64ex.desktop --appdir AppDir --output appimage
     - name: Upload Artifact
       uses: actions/upload-artifact@v4.3.1
       with:

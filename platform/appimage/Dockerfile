@@ -75,6 +75,9 @@ RUN <<eot
 wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage
 chmod +x linuxdeploy-x86_64.AppImage
 ./linuxdeploy-x86_64.AppImage --appimage-extract
+cd squashfs-root/usr/bin/
+wget https://raw.githubusercontent.com/linuxdeploy/linuxdeploy-plugin-gtk/master/linuxdeploy-plugin-gtk.sh
+chmod +x linuxdeploy-plugin-gtk.sh
 eot
 
 RUN mkdir /sm64ex

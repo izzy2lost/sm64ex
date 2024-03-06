@@ -7,21 +7,17 @@ on:
 
 jobs:
   build:
-    name: Linux (AppImage) (glibc 2.37) (x86_64)
+    name: Linux (AppImage) (glibc 2.28) (x86_64)
     runs-on: ubuntu-latest
-    container: fedora:38
+    container: docker
     steps:
-    - uses: actions/checkout@v4.1.1
-    - name: Fetch Dependencies from Fedora
+    - uses: actions/checkout@v3
+    - name: Build sm64ex AppImage builder image
       run: |
-        sudo dnf install -y wget make git gcc g++ python3 glew-devel SDL2-devel curl libcurl-devel jsoncpp-devel gtk4-devel
-    - name: Install linuxdeploy
-      run: |
-        wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage
-        chmod +x linuxdeploy-x86_64.AppImage
-        ./linuxdeploy-x86_64.AppImage --appimage-extract
-    - name: Build sm64ex
-      run: FILE_PICKER=1 BETTERCAMERA=1 make -j$(nproc)
+        cd platform/appimage/
+        docker build . -t sm64ex-appimage-builder
+    - name: Build sm64ex in builder image
+      run: docker run -it -v ${PWD}:/sm64ex sm64ex-appimage-builder make -j$(nproc) FILE_PICKER=1 BETTERCAMERA=1
     - name: Install sm64ex to AppDir
       run: |
         cd build/us_pc
@@ -32,14 +28,10 @@ jobs:
         mv build/us_pc/sm64.us.f3dex2e AppDir/usr/bin/
         mkdir -p AppDir/custom_assets/
         cp -r build/us_pc/* AppDir/custom_assets/
-    - name: Install additional necessary libraries to AppDir
-      run: |
-        mkdir -p AppDir/usr/lib/
-        cp /usr/lib64/libthai* AppDir/usr/lib/
-    - name: Generate AppImage
+    - name: Build sm64ex AppImage in builder image
       run: |
         touch dummy.svg
-        NO_STRIP=true squashfs-root/AppRun --icon-file dummy.svg --desktop-file platform/appimage/sm64ex.desktop --appdir AppDir --output appimage
+        docker run -it -v ${PWD}:/sm64ex sm64ex-appimage-builder squashfs-root/AppRun --icon-file dummy.svg --desktop-file platform/appimage/sm64ex.desktop --appdir AppDir --output appimage NO_STRIP=true
     - name: Upload Artifact
       uses: actions/upload-artifact@v4.3.1
       with:

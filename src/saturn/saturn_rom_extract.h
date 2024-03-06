@@ -20,6 +20,15 @@ extern "C" {
     int saturn_extract_rom(int type);
 #ifdef __cplusplus
 }
+
+/* Test for GCC > 8.3.0 */
+#if __GNUC__ > 8 && __GNUC_MINOR__ > 3 && __GNUC_PATCHLEVEL__ > 0
+#include <filesystem>
+namespace fs = std::filesystem;
+#else
+#include <experimental/filesystem>
+namespace fs = std::experimental::filesystem;
+#endif
 #endif
 
 #endif

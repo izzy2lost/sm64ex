@@ -602,10 +602,6 @@ else
   CFLAGS := $(OPT_FLAGS) $(PLATFORM_CFLAGS) $(INCLUDE_CFLAGS) $(BACKEND_CFLAGS) $(VERSION_CFLAGS) $(GRUCODE_CFLAGS) -fno-strict-aliasing -fwrapv
 endif
 
-# Saturn Enable filesystem library and C++17
-CXXFLAGS := -std=c++17
-LDFLAGS += -lstdc++fs
-
 # Check for enhancement options
 
 # Check for Puppycam option
@@ -713,6 +709,9 @@ else
 endif # End of LDFLAGS
 
 LDFLAGS += -lstdc++
+# Saturn Enable filesystem library and C++17
+CXXFLAGS := -std=c++17
+LDFLAGS += -lstdc++fs
 
 # Prevent a crash with -sopt
 export LANG := C

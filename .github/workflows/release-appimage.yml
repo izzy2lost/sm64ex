@@ -17,7 +17,7 @@ jobs:
         cd platform/appimage/
         docker build . -t sm64ex-appimage-builder
     - name: Build sm64ex in builder image
-      run: docker run -v ${{ github.workspace }}:/sm64ex -w/sm64ex sm64ex-appimage-builder make -j$(nproc) FILE_PICKER=1 BETTERCAMERA=1
+      run: docker run -v ${{ github.workspace }}:/sm64ex sm64ex-appimage-builder make -j$(nproc) FILE_PICKER=1 BETTERCAMERA=1
     - name: Install sm64ex to AppDir
       run: |
         cd build/us_pc
@@ -31,7 +31,7 @@ jobs:
     - name: Build sm64ex AppImage in builder image
       run: |
         touch dummy.svg
-        docker run -v ${{ github.workspace }}:/sm64ex -w/sm64ex sm64ex-appimage-builder squashfs-root/AppRun --icon-file dummy.svg --desktop-file platform/appimage/sm64ex.desktop --appdir AppDir --output appimage NO_STRIP=true
+        docker run -v ${{ github.workspace }}:/sm64ex sm64ex-appimage-builder /squashfs-root/AppRun --icon-file dummy.svg --desktop-file platform/appimage/sm64ex.desktop --appdir AppDir --output appimage NO_STRIP=true
     - name: Upload Artifact
       uses: actions/upload-artifact@v4.3.1
       with:

@@ -48,7 +48,7 @@ index 517d575..fc6acd8 100644
  option('installed_tests',
 EOF
 cd -
-meson setup build -Dwayland-backend=false -Dvulkan=disabled -Dmedia-gstreamer=disabled -Dbuild-tests=false -Dbuild-examples=false -Dbuild-testsuite=false -Dbuild-demos=false -Ddemos=false
+meson setup --prefix=/usr build -Dwayland-backend=false -Dvulkan=disabled -Dmedia-gstreamer=disabled -Dbuild-tests=false -Dbuild-examples=false -Dbuild-testsuite=false -Dbuild-demos=false -Ddemos=false
 meson compile -Cbuild
 meson install -Cbuild
 eot
@@ -66,7 +66,7 @@ tar xf SDL2-*.tar.gz
 cd SDL2-*/
 mkdir build
 cd build
-../configure --disable-video-vulkan --disable-video-wayland
+../configure --prefix=/usr --disable-video-vulkan --disable-video-wayland
 make -j$(nproc)
 make install
 eot

@@ -64,7 +64,7 @@ jobs:
         cd platform/appimage/
         docker build . -t sm64ex-appimage-builder
     - name: Build sm64ex in builder image
-      run: docker run -v ${PWD}:/sm64ex -w/sm64ex sm64ex-appimage-builder make -j$(nproc) FILE_PICKER=1 BETTERCAMERA=1
+      run: docker run -v ${PWD}:/sm64ex -w/sm64ex find /
     - name: Install sm64ex to AppDir
       run: |
         cd build/us_pc

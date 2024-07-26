@@ -34,7 +34,7 @@ OSX_BUILD ?= 0
 NO_PIE ?= 1
 
 # Enable ROM file picker
-FILE_PICKER ?= 1
+FILE_PICKER ?= 0
 
 # Specify the target you are building for, TARGET_BITS=0 means native
 TARGET_ARCH ?= native

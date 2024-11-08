@@ -2,9 +2,9 @@ name: Android Build (sm64ex)
 
 on:
   push:
-    branches: [main]
+    branches: [appimage]
   pull_request:
-    branches: [main]
+    branches: [appimage]
 
 jobs:
   build-android:
